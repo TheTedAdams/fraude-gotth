@@ -16,11 +16,6 @@ var Environment = "development"
 
 func init() {
 	os.Setenv("env", Environment)
-	// run generate script
-	// cmd := exec.Command("make", "tailwind-build")
-	// if err := cmd.Run(); err != nil {
-	// 	fmt.Println(err.Error())
-	// }
 }
 
 func disableCacheInDevMode(next http.Handler) http.Handler {
