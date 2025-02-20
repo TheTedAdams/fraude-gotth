@@ -1,9 +1,0 @@
-<head><title>
-</title><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><script src=\"/static/script/htmx.min.js\"></script><script src=\"/static/script/response-targets.min.js\"></script><link rel=\"stylesheet\" href=\"/static/css/style.min.css\"></head>
-<footer class=\"bg-gray-600\"></footer>
-<nav class=\"\"></nav>
-<!doctype html><html class=\"h-full\">
-<body class=\"flex-col flex h-full dark bg-[#2b2a27]\">
-<main class=\"flex-grow container mx-auto flex flex-col\">
-</main>
-</body></html>

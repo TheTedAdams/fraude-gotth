@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"os/exec"
 
 	"goth/internal/handlers"
 )
@@ -18,14 +17,14 @@ var Environment = "development"
 func init() {
 	os.Setenv("env", Environment)
 	// run generate script
-	cmd := exec.Command("make", "tailwind-build")
-	if err := cmd.Run(); err != nil {
-		fmt.Println(err.Error())
-	}
+	// cmd := exec.Command("make", "tailwind-build")
+	// if err := cmd.Run(); err != nil {
+	// 	fmt.Println(err.Error())
+	// }
 }
 
 func disableCacheInDevMode(next http.Handler) http.Handler {
-	if Environment == "development" {
+	if Environment != "development" {
 		return next
 	}
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -49,7 +48,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3000"
+		port = "3001"
 	}
 
 	fmt.Println("Listening on port", port)

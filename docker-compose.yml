@@ -1,15 +1,23 @@
 services:
-  app:
+  tailwind:
     build:
       context: .
-      dockerfile: dev/Dockerfile
-    platform: linux/amd64
+      dockerfile: dev/tailwind/Dockerfile
     tty: true
     volumes:
       - .:/app
+      - /app/node_modules
+  templ:
+    build:
+      context: .
+      dockerfile: dev/templ/Dockerfile
+    command: >
+      --watch --proxy="http://localhost:8080" --proxybind=0.0.0.0
+      --proxyport=3000 --cmd="go run cmd/main.go" --open-browser=false
+    stop_signal: SIGINT # templ doesn't remove the .txt files without this
     ports:
       - "3000:3000"
-      - "8000:8000"
     environment:
-      - ENVIRONMENT=development
-      - PORT=3000
+      - PORT=8080
+    volumes:
+      - .:/app
