@@ -12,9 +12,11 @@ func NewPostHomeHandler() *PostHomeHandler {
 }
 
 func (h *PostHomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	name := r.PostFormValue("item")
+	message := r.PostFormValue("message")
 
-	err := templates.ItemListElement(name).Render(r.Context(), w)
+	// TODO: Send message to ollama
+
+	err := templates.MessageListElement(message).Render(r.Context(), w)
 	if err != nil {
 		http.Error(w, "Error rendering template", http.StatusInternalServerError)
 	}

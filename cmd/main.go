@@ -24,12 +24,24 @@ func init() {
 	}
 }
 
+func disableCacheInDevMode(next http.Handler) http.Handler {
+	if Environment == "development" {
+		return next
+	}
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-store")
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	mux := http.NewServeMux()
 
 	// Serve static files
-	fileServer := http.FileServer(http.Dir("./static"))
-	mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
+	mux.Handle("/static/",
+		disableCacheInDevMode(
+			http.StripPrefix("/static/",
+				http.FileServer(http.Dir("./static")))))
 
 	// Register route handlers
 	mux.HandleFunc("GET /{$}", handlers.NewHomeHandler().ServeHTTP)
