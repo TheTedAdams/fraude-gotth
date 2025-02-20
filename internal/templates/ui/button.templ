@@ -1,0 +1,84 @@
+package ui
+
+import twmerge "github.com/Oudwins/tailwind-merge-go"
+
+const baseClass = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 ring-ring/10 dark:ring-ring/20 dark:outline-ring/40 outline-ring/50 focus-visible:ring-4 focus-visible:outline-1 aria-invalid:focus-visible:ring-0"
+
+type ButtonType int
+
+const (
+	ButtonTypeButton ButtonType = iota
+	ButtonTypeSubmit
+	ButtonTypeReset
+)
+
+func (t ButtonType) String() string {
+	switch t {
+	case ButtonTypeSubmit:
+		return "submit"
+	case ButtonTypeReset:
+		return "reset"
+	default:
+		return "button"
+	}
+}
+
+type ButtonVariant int
+
+const (
+	ButtonVariantDefault ButtonVariant = iota
+	ButtonVariantDestructive
+	ButtonVariantOutline
+	ButtonVariantSecondary
+	ButtonVariantGhost
+	ButtonVariantLink
+)
+
+func (v ButtonVariant) Class() string {
+	switch v {
+	case ButtonVariantDestructive:
+		return "bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90"
+	case ButtonVariantOutline:
+		return "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground"
+	case ButtonVariantSecondary:
+		return "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80"
+	case ButtonVariantGhost:
+		return "hover:bg-accent hover:text-accent-foreground"
+	case ButtonVariantLink:
+		return "text-primary underline-offset-4 hover:underline"
+	default:
+		return "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90"
+	}
+}
+
+type ButtonSize int
+
+const (
+	ButtonSizeDefault ButtonSize = iota
+	ButtonSizeSmall
+	ButtonSizeLarge
+	ButtonSizeIcon
+)
+
+func (s ButtonSize) Class() string {
+	switch s {
+	case ButtonSizeSmall:
+		return "h-8 rounded-md px-3 has-[>svg]:px-2.5"
+	case ButtonSizeLarge:
+		return "h-10 rounded-md px-6 has-[>svg]:px-4"
+	case ButtonSizeIcon:
+		return "size-9"
+	default:
+		return "h-9 px-4 py-2 has-[>svg]:px-3"
+	}
+}
+
+templ Button(buttonType ButtonType, variant ButtonVariant, size ButtonSize, classes string, attrs templ.Attributes) {
+	<button
+		type={ buttonType.String() }
+		class={ twmerge.Merge(baseClass, variant.Class(), size.Class(), classes) }
+		{ attrs... }
+	>
+		{ children... }
+	</button>
+}
