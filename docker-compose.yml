@@ -19,5 +19,6 @@ services:
       - "3000:3000"
     environment:
       - PORT=8080
+      - OLLAMA_HOST=http://host.docker.internal:11434
     volumes:
       - .:/app
