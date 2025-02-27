@@ -10,6 +10,20 @@ This project is using the ["GoTTH" stack](https://github.com/TomDoesTech/GOTTH/)
 - Templ - Templating / UI Components
 - HTMX - Interactivity
 
+## Getting Started
+
+Tools you will need:
+
+- Docker desktop
+- Go 1.24
+- Ollama
+
+To start development:
+
+```sh
+docker compose up
+```
+
 ## Decisions
 
 You can check out my thoughts on stuff in the [decisions](docs/decisions) directory
